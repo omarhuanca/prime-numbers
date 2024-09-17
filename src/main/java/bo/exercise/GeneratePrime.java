@@ -2,16 +2,16 @@ package bo.exercise;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class GeneratePrime {
 
 	private List<Integer> numberPrimeList;
 	public static String MESSAGE_NUMBER_NEGATIVE = "Number can not be use";
-	
+
 	public GeneratePrime() {
 		this.numberPrimeList = new ArrayList<Integer>();
 	}
-
 
 	public List<Integer> getList() {
 		return numberPrimeList;
@@ -21,29 +21,35 @@ public class GeneratePrime {
 		return numberPrimeList.size() == newSize;
 	}
 
-	public void generatePrimeUntilSpecificLimit(Integer limit) {
-		if (limit < 0) {
+	public void generatePrimeUntilSpecificLimit(Integer potentialLimit) {
+		if (potentialLimit < 0) {
 			throw new RuntimeException(MESSAGE_NUMBER_NEGATIVE);
 		}
 
-		if (limit.equals(1)) {
+		if (potentialLimit.equals(1)) {
 			numberPrimeList.add(1);
 		}
 
-		for (int j = 2; j <= limit; j++) {
-			if (verifyNumberIsPrime(j)) {
-				numberPrimeList.add(j);
+		int[] arrayInt = new int[1];
+		arrayInt[0] = 2;
+
+		while (arrayInt[0] <= potentialLimit) {
+			if (verifyNumberIsPrime(arrayInt[0], i1 -> arrayInt[0] % i1 == 0)) {
+				numberPrimeList.add(arrayInt[0]);
 			}
+			arrayInt[0] = arrayInt[0] + 1;
 		}
 
 	}
 
-	private Boolean verifyNumberIsPrime(Integer limit) {
+	private Boolean verifyNumberIsPrime(int potentialLimit, Function<Integer, Boolean> conditionalBlock) {
 		Integer counter = 0;
-		for (int i = 1; i <= limit; i++) {
-			if (limit % i == 0) {
+		Integer i = 1;
+		while (i <= potentialLimit) {
+			if (conditionalBlock.apply(i)) {
 				counter++;
 			}
+			i++;
 		}
 
 		return counter == 2;

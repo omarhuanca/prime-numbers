@@ -23,7 +23,7 @@ public class GeneratePrimeTest {
 	}
 
 	@Test
-	public void generatePrimeUnitlNumberTwo() {
+	public void generatePrimeUntilNumberTwo() {
 		generator.generatePrimeUntilSpecificLimit(2);
 
 		assertTrue(generator.compareSizeList(1));
@@ -31,8 +31,8 @@ public class GeneratePrimeTest {
 
 	@Test
 	public void generatePrimeWithNumberNegative() {
-		generator.generatePrimeUntilSpecificLimit(-1);
 
-		assertThrows(RuntimeException.class, () -> generator.compareSizeList(0), GeneratePrime.MESSAGE_NUMBER_NEGATIVE);
+		assertThrows(RuntimeException.class, () -> generator.generatePrimeUntilSpecificLimit(-1),
+				GeneratePrime.MESSAGE_NUMBER_NEGATIVE);
 	}
 }
